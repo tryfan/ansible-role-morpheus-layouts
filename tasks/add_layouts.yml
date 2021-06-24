@@ -37,15 +37,9 @@
     validate_certs: "{{ verify_ssl }}"
   register: instancetype_layouts_result
 
-  #- debug:
-  #  var: instancetype_layouts_result
-
 - name: Set jsonquery for layout
   set_fact:
     jmesquery: "instanceTypeLayouts[?name=='{{ item.name }}' && instanceVersion=='{{ item.instanceVersion }}' && provisionType.code=='{{ item.provisionTypeCode }}']"
-
-- debug:
-    var: jmesquery
 
 - name: Set fact for layout name/version pair discovered
   set_fact:
@@ -62,9 +56,6 @@
         provisionTypeCode: "{{ item.provisionTypeCode }}"
         containerTypes:
           - "{{ nodetype_id }}"
-
-- debug:
-    var: layout_json 
 
 - name: Create Layout
   uri:
